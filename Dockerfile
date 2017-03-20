@@ -10,6 +10,7 @@ RUN apt-get update \
 		libmcrypt-dev \
 		libpng12-dev \
 		libxml2-dev \
+		mariadb-client \
 		unzip \
 		zlib1g-dev \
 	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
