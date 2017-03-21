@@ -37,3 +37,10 @@ RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& chown -R www-data: /var/www/html/ \
 	&& rm -rf /tmp/iTop.zip /tmp/web
+
+# Add default configuration
+COPY config-itop.php /etc/itop/production/config-itop.php
+RUN ln -s /etc/itop /var/www/html/conf \
+	&& chown -R www-data: /etc/itop
+
+ENV DB_HOSTNAME="db" DB_PREFIX=""
