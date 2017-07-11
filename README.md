@@ -29,3 +29,19 @@ The link needs to be called **db** in order to gain profit of it:
 ```
 docker run -d -p 80:80 --link=my-itop-db:db --name=my-itop supervisions/itop:latest
 ```
+
+### Scheduling cron.php
+
+In order to operate properly, iTop maintenance operations and asynchronous tasks must be executed on a regular basis.
+In order to ease the installation, all the background tasks have been grouped to be launched from a single file.
+The command to run this from your sheduler looks like this:
+
+```
+docker exec my-itop php webservices/cron.php --auth_user=<login> --auth_pwd=<password>
+```
+If you don't want these credentials to be present in your sheduler, you can create a file `/etc/itop/cron.params` based on the file `webservices/cron.distrb` which can be used as a template.
+The command to run from your sheduler then becomes this:
+
+```
+docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
+```
