@@ -12,7 +12,7 @@ Run the latest version (see tags for other iTop versions) container named **my-i
 ```
 docker run -d -p 80:80 --name=my-itop supervisions/itop:latest
 ```
-Then go to [http://localhost/](http://localhost/) to continue the installation.
+Then go to [http://localhost/setup](http://localhost/setup) to continue the installation.
 The setup can be preloaded with database credentials by linking to a MySQL/MariaDB container or by providing environment variables.
 Note that you will need to select _Install a new iTop_ on the second page.
 
