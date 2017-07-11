@@ -39,6 +39,7 @@ RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.
 	&& rm -rf /tmp/iTop.zip /tmp/web
 
 # Add default configuration
+COPY php.ini /usr/local/etc/php/php.ini
 COPY config-itop.php /etc/itop/production/config-itop.php
 RUN ln -s /etc/itop /var/www/html/conf \
 	&& chown -R www-data: /etc/itop
