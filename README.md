@@ -45,3 +45,8 @@ The command to run from your sheduler then becomes this:
 ```
 docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
 ```
+
+## Tags
+
+* `2.3.4`, `2.3`, `latest` [(Readme)](https://sourceforge.net/p/itop/code/HEAD/tree/branches/2.3/readme.txt)
+* `2.3.3` [(Readme)](https://sourceforge.net/p/itop/code/HEAD/tree/tags/2.3.3/readme.txt)
