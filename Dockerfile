@@ -1,4 +1,4 @@
-FROM php:apache
+FROM php:7.1-apache
 
 # install extra packages
 RUN apt-get update \
