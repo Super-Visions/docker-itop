@@ -1,14 +1,14 @@
-FROM php:apache
+FROM php:7.1-apache
 
 # install extra packages
 RUN apt-get update \
 	&& apt-get install -y \
 		graphviz \
 		libfreetype6-dev \
-		libjpeg62-turbo-dev \
+		libjpeg-dev \
 		libldap2-dev \
 		libmcrypt-dev \
-		libpng12-dev \
+		libpng-dev \
 		libxml2-dev \
 		mariadb-client \
 		unzip \
@@ -23,10 +23,10 @@ RUN apt-get update \
 		zip \
 	&& apt-get remove -y \
 		libfreetype6-dev \
-		libjpeg62-turbo-dev \
+		libjpeg-dev \
 		libldap2-dev \
 		libmcrypt-dev \
-		libpng12-dev \
+		libpng-dev \
 		libxml2-dev \
 		zlib1g-dev \
 	&& rm -rf /var/lib/apt/lists/*
