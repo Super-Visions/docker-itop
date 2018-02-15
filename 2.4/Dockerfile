@@ -32,7 +32,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Load iTop files
-RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.4.0/iTop-2.4.0-3585.zip \
+RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.4.1/iTop-2.4.1-3714.zip \
 	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& chown -R www-data: /var/www/html/ \
