@@ -22,7 +22,7 @@ This methods works with both [MySQL](https://hub.docker.com/_/mysql/) or [MariaD
 For example, create this MySQL instance named **my-itop-db**:
 
 ```
-docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql:latest
+docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql:5
 ```
 The link needs to be called **db** in order to gain profit of it:
 
