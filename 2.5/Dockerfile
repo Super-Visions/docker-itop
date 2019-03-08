@@ -40,8 +40,7 @@ RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.
 
 # Add default configuration
 COPY php.ini /usr/local/etc/php/php.ini
-COPY config-itop.php /etc/itop/production/config-itop.php
-RUN ln -s /etc/itop /var/www/html/conf \
-	&& chown -R www-data: /etc/itop
+COPY config-itop.php /var/www/html/conf/production/config-itop.php
+RUN chown -R www-data: /var/www/html/conf
 
 ENV DB_HOSTNAME="db" DB_PREFIX=""
