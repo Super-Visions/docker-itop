@@ -1,3 +1,7 @@
 # ignore iTop Essential source and builds
 Essential/files/iTop Essential-*.zip
 Essential/files/iTop-essential-docker.tar.gz
+
+# ignore iTop Professional source and builds
+Professional/files/iTop Professional-*.zip
+Professional/files/iTop-professional-docker.tar.gz
