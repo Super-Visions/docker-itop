@@ -10,7 +10,7 @@ RUN apt-get update \
 		mariadb-client \
 		unzip \
 	&& chmod uga+x /usr/local/bin/install-php-extensions \
-	&& install-php-extensions --cleanup \
+	&& install-php-extensions \
 		gd \
 		ldap \
 		mcrypt \
