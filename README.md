@@ -22,7 +22,7 @@ This methods works with both [MySQL](https://hub.docker.com/_/mysql/) or [MariaD
 For example, create this MySQL instance named **my-itop-db**:
 
 ```
-docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql:5
+docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
 ```
 The link needs to be called **db** in order to gain profit of it:
 
@@ -48,7 +48,8 @@ docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
 
 ## Tags
 
-* `2.6.3`, `2.6`, `latest` [(Readme)](https://github.com/Combodo/iTop/blob/2.6.3/README.md)
+* `2.7.0`, `2.7`, `latest` [(Readme)](https://github.com/Combodo/iTop/blob/2.7.0-2/README.md)
+* `2.6.3`, `2.6` [(Readme)](https://github.com/Combodo/iTop/blob/2.6.3/README.md)
 * `2.6.1`, [(Readme)](https://github.com/Combodo/iTop/blob/2.6.1/README.md)
 * `2.6.0` [(Readme)](https://github.com/Combodo/iTop/blob/2.6.0/README.md)
 * `2.5.1`, `2.5` [(Readme)](https://github.com/Combodo/iTop/blob/2.5.1/readme.txt)
