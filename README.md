@@ -1,7 +1,7 @@
 iTop
 ====
 
-Run [iTop](https://www.combodo.com/itop-193) in a Docker container based on the [php:apache](https://hub.docker.com/_/php/) image.
+Run [iTop](https://www.itophub.io) in a Docker container based on the [php:apache](https://hub.docker.com/_/php/) image.
 
 [![iTop layer size](https://images.microbadger.com/badges/image/supervisions/itop.svg)](https://microbadger.com/images/supervisions/itop "Get your own image badge on microbadger.com")
 
