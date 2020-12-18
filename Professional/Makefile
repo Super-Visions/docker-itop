@@ -1,7 +1,7 @@
 all: build package
 
 build:
-	docker build -t itop-professional:latest -t itop-professional:2.7.0 .
+	docker build -t itop-professional:latest -t itop-professional:2.7.3 .
 
 package:
 	docker save itop-professional | gzip > files/iTop-professional-docker.tar.gz
