@@ -1,7 +1,7 @@
 all: build package
 
 build:
-	docker build --pull -t itop-essential:latest -t itop-essential:2.7.3 .
+	docker build --pull -t itop-essential:latest -t itop-essential:2.7.4 .
 
 package:
 	docker save itop-essential | gzip > files/iTop-essential-docker.tar.gz

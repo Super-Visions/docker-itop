@@ -19,7 +19,7 @@ RUN apt-get update \
 		zip 
 
 # Load iTop files
-COPY ["files/iTop Essential-2.7.3-6625.zip", "/tmp/iTop.zip"]
+COPY ["files/iTop Essential-2.7.4-7198.zip", "/tmp/iTop.zip"]
 RUN unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& chown -R www-data: /var/www/html/ \
