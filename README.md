@@ -19,10 +19,10 @@ Note that you will need to select _Install a new iTop_ on the second page.
 ### Link with MySQL or MariaDB container
 
 This methods works with both [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) containers.
-For example, create this MySQL instance named **my-itop-db**:
+For example, create this MariaDB instance named **my-itop-db**:
 
 ```
-docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mariadb
 ```
 The link needs to be called **db** in order to gain profit of it:
 
