@@ -20,7 +20,7 @@ RUN apt-get update \
 		zip 
 
 # Load iTop files
-RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/3.0.0-beta2/iTop-3.0.0-beta2-7720.zip \
+RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/3.0.0-beta5/iTop-3.0.0-beta5-8216.zip \
 	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& chown -R www-data: /var/www/html/ \
