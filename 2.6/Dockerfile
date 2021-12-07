@@ -22,6 +22,7 @@ RUN apt-get update \
 RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.6.3/iTop-2.6.3-5092.zip \
 	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
+	&& mkdir /var/www/html/env-production \
 	&& chown -R www-data: /var/www/html/ \
 	&& rm -rf /tmp/iTop.zip /tmp/web
 
@@ -31,3 +32,4 @@ COPY config-itop.php /var/www/html/conf/production/config-itop.php
 RUN chown -R www-data: /var/www/html/conf
 
 ENV DB_HOSTNAME="db" DB_PREFIX=""
+VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production"]
