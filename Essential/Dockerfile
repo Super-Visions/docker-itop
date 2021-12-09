@@ -29,4 +29,4 @@ RUN unzip /tmp/iTop.zip -d /tmp/ web/* \
 # Add default configuration
 COPY php.ini /usr/local/etc/php/php.ini
 
-VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production"]
+VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production", "/var/www/html/log"]
