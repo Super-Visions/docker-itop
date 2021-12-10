@@ -29,4 +29,9 @@ RUN unzip /tmp/iTop.zip -d /tmp/ web/* \
 # Add default configuration
 COPY php.ini /usr/local/etc/php/php.ini
 
+# Add custom entrypoint
+COPY docker-itop-entrypoint /usr/local/bin/
+ENTRYPOINT ["docker-itop-entrypoint"]
+CMD ["apache2-foreground"]
+
 VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production", "/var/www/html/log"]

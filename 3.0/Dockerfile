@@ -32,5 +32,10 @@ COPY php.ini /usr/local/etc/php/php.ini
 COPY config-itop.php /var/www/html/conf/production/config-itop.php
 RUN chown -R www-data: /var/www/html/conf
 
+# Add custom entrypoint
+COPY docker-itop-entrypoint /usr/local/bin/
+ENTRYPOINT ["docker-itop-entrypoint"]
+CMD ["apache2-foreground"]
+
 ENV DB_HOSTNAME="db" DB_PREFIX=""
 VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production", "/var/www/html/log"]
