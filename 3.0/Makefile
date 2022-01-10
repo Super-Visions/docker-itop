@@ -1,9 +1,11 @@
-version = 3.0.0-beta5
+version = 3.0.0
+release = $(version)-beta5
+patch = 8216
 
 all: build push
 
 build:
-	docker build --pull -t supervisions/itop:latest -t supervisions/itop:3.0 -t supervisions/itop:$(version) .
+	docker build --pull -t supervisions/itop:latest -t supervisions/itop:3.0 -t supervisions/itop:$(version) -t supervisions/itop:$(release) .
 
 push:
 	docker push supervisions/itop
