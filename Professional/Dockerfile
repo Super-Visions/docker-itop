@@ -1,5 +1,9 @@
 FROM php:7.2-apache
 
+# load version info from arguments
+ARG release
+ARG patch
+
 # add helper script
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
@@ -19,7 +23,7 @@ RUN apt-get update \
 		zip 
 
 # Load iTop files
-COPY ["files/iTop Professional-2.7.6-8526.zip", "/tmp/iTop.zip"]
+COPY ["files/iTop Professional-${release}-${patch}.zip", "/tmp/iTop.zip"]
 RUN unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& mkdir /var/www/html/conf /var/www/html/env-production \

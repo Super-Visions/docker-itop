@@ -1,7 +1,15 @@
+version = 2.7.6
+release = $(version)
+patch = 8527
+
 all: build package
 
 build:
-	docker build --pull -t itop-essential:latest -t itop-essential:2.7.6 .
+	docker build --pull \
+		--build-arg release=$(release) \
+		--build-arg patch=$(patch) \
+		-t itop-essential:latest \
+		-t itop-essential:$(version) .
 
 package:
 	docker save itop-essential | gzip > files/iTop-essential-docker.tar.gz

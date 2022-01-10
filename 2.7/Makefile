@@ -5,7 +5,13 @@ patch = 8526
 all: build push
 
 build:
-	docker build --pull -t supervisions/itop:latest -t supervisions/itop:2.7 -t supervisions/itop:$(version) -t supervisions/itop:$(release) .
+	docker build --pull \
+		--build-arg release=$(release) \
+		--build-arg patch=$(patch) \
+		-t supervisions/itop \
+		-t supervisions/itop:2.7 \
+		-t supervisions/itop:$(version) \
+		-t supervisions/itop:$(release) .
 
 push:
 	docker push supervisions/itop
