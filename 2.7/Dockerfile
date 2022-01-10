@@ -19,7 +19,7 @@ RUN apt-get update \
 		zip 
 
 # Load iTop files
-RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.7.5-1/iTop-2.7.5-1-7770.zip \
+RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/2.7.6/iTop-2.7.6-8526.zip \
 	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& mkdir /var/www/html/env-production \
