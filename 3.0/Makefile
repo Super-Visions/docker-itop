@@ -1,6 +1,6 @@
 version = 3.0.0
-release = $(version)-beta5
-patch = 8216
+release = $(version)
+patch = 8663
 
 all: build push
 
