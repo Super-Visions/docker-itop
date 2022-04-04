@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "itop-chart.fullname" . }}
+  labels:
+    {{- include "itop-chart.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "itop-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "itop-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "itop-chart.serviceAccountName" . }}
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      volumes:
+        - name: itop-conf-pv
+          persistentVolumeClaim:
+            claimName: itop-conf-pvc
+        - name: itop-data-pv
+          persistentVolumeClaim:
+            claimName: itop-data-pvc
+        - name: itop-env-pv
+          persistentVolumeClaim:
+            claimName: itop-env-pvc
+        - name: itop-log-pv
+          persistentVolumeClaim:
+            claimName: itop-log-pvc   
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: "/var/www/html/data"
+              name: itop-data-pv
+            - mountPath: "/var/www/html/env-production"
+              name: itop-env-pv
+            - mountPath: "/var/www/html/log"
+              name: itop-log-pv
+            - mountPath: "/var/www/html/conf"
+              name: itop-conf-pv
+          env:
+            - name: "DB_ENV_MYSQL_DATABASE"
+              value: {{ .Values.environment.db_name}}
+            - name: "DB_HOSTNAME"
+              value: {{ .Values.environment.db_host}}
+            - name: "DB_ENV_MYSQL_USER"
+              value: {{ .Values.environment.db_user}}
+            - name: "DB_ENV_MYSQL_PASSWORD"
+              value: {{ .Values.environment.db_pwd}}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /webservices/status.php
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /webservices/status.php
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
