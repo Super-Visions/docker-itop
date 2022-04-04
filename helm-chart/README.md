@@ -3,7 +3,8 @@
 This is a helm chart used to easily deploy iTop to a K8S cluster using [HELM](https://helm.sh/).
 
 ### Volumes 
-In order for iTop to support being upgraded and being restarted pvc are automacaly created.
+
+In order for iTop to support being upgraded and being restarted, pvc are automatically created.
 
 You can check the [template](./templates/pvc.yaml) for more info.
 
