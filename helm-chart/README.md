@@ -29,7 +29,7 @@ You can edit the values.yaml file directly or use the set directive with the hel
 image:
   repository: supervisions/itop
   pullPolicy: Always
-  tag: 3.0.0
+  tag: 3.0
 ```
 
 There also the environnement variables that are : 
