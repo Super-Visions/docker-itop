@@ -43,7 +43,7 @@ environment:
 
 ### Pod security
 
-In order to allow itop to access the itop, adding specific security context for the pod was needed, those can be found in the deployment.yaml file
+In order to allow the itop service to access the files on the system, adding specific security context for the pod was needed, those can be found in the deployment.yaml file
 
 ```
 securityContext:
