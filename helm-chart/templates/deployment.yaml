@@ -72,11 +72,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /webservices/status.php
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /webservices/status.php
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
