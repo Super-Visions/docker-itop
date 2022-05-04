@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 
 # load version info from arguments
-ARG release=3.0.0
+ARG release
 ARG patch
 
 # add helper script
