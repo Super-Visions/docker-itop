@@ -2,6 +2,8 @@
 
 Run [iTop](https://www.itophub.io) in a Docker container based on the [php:apache](https://hub.docker.com/_/php/) image.
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/supervisions/itop) ![Docker Stars](https://img.shields.io/docker/stars/supervisions/itop) ![Docker Image Size](https://img.shields.io/docker/image-size/supervisions/itop/latest)](https://hub.docker.com/r/supervisions/itop)
+
 ## Usage
 
 Run the latest version (see tags for other iTop versions) container named **my-itop**:
