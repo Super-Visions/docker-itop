@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "itop-chart.selectorLabels" . | nindent 6 }}
@@ -25,10 +27,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "itop-chart.serviceAccountName" . }}
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 3000
-        fsGroup: 2000
+#      securityContext:
+#        runAsUser: 1000
+#        runAsGroup: 3000
+#        fsGroup: 2000
       volumes:
         - name: itop-conf-pv
           persistentVolumeClaim:
@@ -68,15 +70,15 @@ spec:
               value: {{ .Values.environment.db_pwd}}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /webservices/status.php
+              path: /setup/
               port: http
           readinessProbe:
             httpGet:
-              path: /webservices/status.php
+              path: /setup/
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

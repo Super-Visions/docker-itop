@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: supervisions/itop
   pullPolicy: Always
-  tag: 3.0
+  tag: 3.0.2
 
 environment:
   db_host: <mysql-server-url> "mysql-chart.database.svc.cluster.local"
@@ -40,6 +40,17 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+pvc:
+  storageClassName: standard
+  conf:
+    size: 1Gi
+  data:
+    size: 1Gi
+  env:
+    size: 1Gi
+  log:
+    size: 1Gi
 
 service:
   type: ClusterIP

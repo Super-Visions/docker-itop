@@ -5,9 +5,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.conf.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -16,9 +17,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.data.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -27,9 +29,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.env.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -38,6 +41,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.log.size }}
