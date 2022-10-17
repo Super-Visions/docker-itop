@@ -82,6 +82,11 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      initContainers:
+      - name: init-volume
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        command: [ 'sh', '-c', 'chown www-data:www-data conf data env-production log' ]   
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
