@@ -85,7 +85,16 @@ spec:
       initContainers:
       - name: init-volume
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        command: [ 'sh', '-c', 'chown www-data:www-data conf data env-production log' ]   
+        command: [ 'sh', '-c', 'chown www-data:www-data conf data env-production log' ]
+        volumeMounts:
+        - mountPath: "/var/www/html/data"
+          name: itop-data-pv
+        - mountPath: "/var/www/html/env-production"
+          name: itop-env-pv
+        - mountPath: "/var/www/html/log"
+          name: itop-log-pv
+        - mountPath: "/var/www/html/conf"
+          name: itop-conf-pv
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
