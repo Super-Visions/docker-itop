@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: supervisions/itop
   pullPolicy: Always
-  tag: 3.0.2
+  tag: 3.0
 
 environment:
   db_host: <mysql-server-url> "mysql-chart.database.svc.cluster.local"
