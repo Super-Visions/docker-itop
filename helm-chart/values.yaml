@@ -28,6 +28,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+container:
+  port: 80
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -55,6 +57,7 @@ pvc:
 service:
   type: ClusterIP
   port: 80
+  targetPort: 80
 
 ingress:
   enabled: true

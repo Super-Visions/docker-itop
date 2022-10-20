@@ -70,7 +70,7 @@ spec:
               value: {{ .Values.environment.db_pwd}}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.container.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
