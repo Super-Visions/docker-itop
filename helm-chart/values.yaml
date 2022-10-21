@@ -46,7 +46,7 @@ securityContext: {}
 pvc:
   storageClassName: standard
   conf:
-    size: 10Gi
+    size: 1Gi
   data:
     size: 10Gi
   env:
