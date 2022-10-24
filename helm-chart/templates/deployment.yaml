@@ -22,6 +22,8 @@ spec:
       labels:
         {{- include "itop-chart.selectorLabels" . | nindent 8 }}
     spec:
+      securityContext:
+        fsGroup: 33
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -70,27 +72,14 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /setup/
+              path: /webservices/status.php
               port: http
           readinessProbe:
             httpGet:
-              path: /setup/
+              path: /webservices/status.php
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      initContainers:
-      - name: init-volume
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        command: [ 'sh', '-c', 'chown www-data:www-data conf data env-production log' ]
-        volumeMounts:
-        - mountPath: "/var/www/html/data"
-          name: itop-data-pv
-        - mountPath: "/var/www/html/env-production"
-          name: itop-env-pv
-        - mountPath: "/var/www/html/log"
-          name: itop-log-pv
-        - mountPath: "/var/www/html/conf"
-          name: itop-conf-pv
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
