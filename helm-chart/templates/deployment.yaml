@@ -22,13 +22,13 @@ spec:
       labels:
         {{- include "itop-chart.selectorLabels" . | nindent 8 }}
     spec:
-      securityContext:
-        fsGroup: 33
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "itop-chart.serviceAccountName" . }}
+      securityContext:
+        fsGroup: 33
       volumes:
         - name: itop-conf-pv
           persistentVolumeClaim:
@@ -80,7 +80,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
