@@ -97,7 +97,7 @@ spec:
           name: itop-conf-pvc
         - mountPath: "/var/www/html/config_php"
           name: itop-conf-php
-        command: ['sh','-c','mkdir conf/production && cp config_php/config-itop.php conf/production/ && chmod 660 conf/production/config-itop.php']
+        command: ['sh','-c','[ -f /var/www/html/conf/production ] && mkdir conf/production && cp config_php/config-itop.php conf/production/ && chmod 660 conf/production/config-itop.php']
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
