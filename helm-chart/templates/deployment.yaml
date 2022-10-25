@@ -8,8 +8,10 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  {{-  if eq .Values.pvc.accessMode "ReadWriteOnce" }}
   strategy:
     type: Recreate
+  {{- end }}   
   selector:
     matchLabels:
       {{- include "itop-chart.selectorLabels" . | nindent 6 }}
