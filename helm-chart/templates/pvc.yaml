@@ -4,10 +4,11 @@ metadata:
   name: itop-conf-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.pvc.accessMode }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.conf.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -15,10 +16,11 @@ metadata:
   name: itop-data-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.pvc.accessMode }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.data.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -26,10 +28,11 @@ metadata:
   name: itop-env-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.pvc.accessMode }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.env.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -37,7 +40,8 @@ metadata:
   name: itop-log-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.pvc.accessMode }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
   resources:
     requests:
-      storage: 3Gi
+      storage: {{ .Values.pvc.log.size }}

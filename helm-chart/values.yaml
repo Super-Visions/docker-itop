@@ -28,6 +28,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+container:
+  port: 80
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -41,9 +43,22 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+pvc:
+  accessMode: ReadWriteOnce
+  storageClassName: standard
+  conf:
+    size: 1Gi
+  data:
+    size: 10Gi
+  env:
+    size: 1Gi
+  log:
+    size: 1Gi
+
 service:
   type: ClusterIP
   port: 80
+  targetPort: 80
 
 ingress:
   enabled: true
