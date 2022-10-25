@@ -32,7 +32,10 @@ spec:
       securityContext:
         fsGroup: 33
       volumes:
-        - name: itop-conf-pv
+        - name: itop-conf-php
+          configMap:
+            name: config-{{ .Release.Name }}
+        - name: itop-conf-pvc
           persistentVolumeClaim:
             claimName: itop-conf-pvc
         - name: itop-data-pv
@@ -58,7 +61,9 @@ spec:
             - mountPath: "/var/www/html/log"
               name: itop-log-pv
             - mountPath: "/var/www/html/conf"
-              name: itop-conf-pv
+              name: itop-conf-pvc
+            - mountPath: "/var/www/html/config_php"
+              name: itop-conf-php
           env:
             - name: "DB_ENV_MYSQL_DATABASE"
               value: {{ .Values.environment.db_name}}
@@ -76,12 +81,23 @@ spec:
             httpGet:
               path: /webservices/status.php
               port: http
+            failureThreshold: 20
           readinessProbe:
             httpGet:
               path: /webservices/status.php
               port: http
+            failureThreshold: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      initContainers:
+      - name: init-config
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        volumeMounts:
+        - mountPath: "/var/www/html/conf"
+          name: itop-conf-pvc
+        - mountPath: "/var/www/html/config_php"
+          name: itop-conf-php
+        command: ['sh','-c','mkdir conf/production && cp config_php/config-itop.php conf/production/ && chmod 660 conf/production/config-itop.php']
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
