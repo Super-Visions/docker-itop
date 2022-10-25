@@ -44,7 +44,7 @@ securityContext: {}
   # runAsUser: 1000
 
 pvc:
-  accessMode: ReadWriteMany
+  accessMode: ReadWriteOnce
   storageClassName: standard
   conf:
     size: 1Gi
