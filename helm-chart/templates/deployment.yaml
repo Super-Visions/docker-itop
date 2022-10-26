@@ -35,7 +35,7 @@ spec:
         - name: itop-conf-php
           configMap:
             name: config-{{ .Release.Name }}
-        - name: itop-conf-pvc
+        - name: itop-conf-pv
           persistentVolumeClaim:
             claimName: itop-conf-pvc
         - name: itop-data-pv
@@ -61,7 +61,7 @@ spec:
             - mountPath: "/var/www/html/log"
               name: itop-log-pv
             - mountPath: "/var/www/html/conf"
-              name: itop-conf-pvc
+              name: itop-conf-pv
             - mountPath: "/var/www/html/config_php"
               name: itop-conf-php
           env:
