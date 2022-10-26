@@ -81,12 +81,10 @@ spec:
             httpGet:
               path: /webservices/status.php
               port: http
-            failureThreshold: 20
           readinessProbe:
             httpGet:
               path: /webservices/status.php
               port: http
-            failureThreshold: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       initContainers:
@@ -97,7 +95,7 @@ spec:
           name: itop-conf-pvc
         - mountPath: "/var/www/html/config_php"
           name: itop-conf-php
-        command: ['sh','-c','[ -f /var/www/html/conf/production ] && mkdir conf/production && cp config_php/config-itop.php conf/production/ && chmod 660 conf/production/config-itop.php']
+        command: ['sh','-c','if test -f /var/www/html/conf/production/config-itop.php; then exit 0; else mkdir conf/production && cp config_php/config-itop.php conf/production/ && chmod 660 conf/production/config-itop.php; fi' ]
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
