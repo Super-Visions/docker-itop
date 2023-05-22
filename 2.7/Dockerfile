@@ -20,7 +20,8 @@ RUN apt-get update \
 		mcrypt \
 		mysqli \
 		soap \
-		zip 
+		zip \
+		imap
 
 # Load iTop files
 RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/itop/files/itop/${release}/iTop-${release}-${patch}.zip \

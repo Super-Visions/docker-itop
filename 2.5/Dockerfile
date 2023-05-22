@@ -21,6 +21,7 @@ RUN apt-get update \
 		mysqli \
 		soap \
 		zip \
+		imap \
 	&& apt-get remove -y \
 		libfreetype6-dev \
 		libjpeg-dev \
