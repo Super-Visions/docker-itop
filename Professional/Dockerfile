@@ -20,7 +20,8 @@ RUN apt-get update \
 		mcrypt \
 		mysqli \
 		soap \
-		zip 
+		zip \
+		imap
 
 # Load iTop files
 COPY ["files/iTop Professional-${release}-${patch}.zip", "/tmp/iTop.zip"]
