@@ -16,11 +16,12 @@ RUN apt-get update \
 	&& chmod uga+x /usr/local/bin/install-php-extensions && \
     install-php-extensions \
 		gd \
+		imap \
 		ldap \
 		mcrypt \
 		mysqli \
 		soap \
-		zip 
+		zip
 
 # Load iTop files
 COPY ["files/iTop Professional-${release}-${patch}.zip", "/tmp/iTop.zip"]
