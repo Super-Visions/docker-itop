@@ -1,6 +1,6 @@
-version = 3.0.2
+version = 3.1.0
 release = $(version)
-patch = 2304
+patch = 2307
 builder = itop_builder
 platforms = linux/arm64,linux/amd64
 
@@ -17,7 +17,7 @@ build: setup_builder
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
 		-t supervisions/teemip \
-		-t supervisions/teemip:3.0 \
+		-t supervisions/teemip:3.1 \
 		-t supervisions/teemip:$(version) \
 		-t supervisions/teemip:$(release) .
 
@@ -28,7 +28,7 @@ load: setup_builder
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
 		-t supervisions/teemip \
-		-t supervisions/teemip:3.0 \
+		-t supervisions/teemip:3.1 \
 		-t supervisions/teemip:$(version) \
 		-t supervisions/teemip:$(release) .
 
@@ -40,5 +40,5 @@ push: setup_builder
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
 		-t supervisions/teemip \
-		-t supervisions/teemip:3.0 \
+		-t supervisions/teemip:3.1 \
 		-t supervisions/teemip:$(version) .
