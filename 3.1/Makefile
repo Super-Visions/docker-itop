@@ -1,6 +1,6 @@
 version = 3.1.0
-release = $(version)-1
-patch = 11836
+release = $(version)-2
+patch = 11973
 builder = itop_builder
 platforms = linux/arm64,linux/amd64
 
@@ -40,4 +40,5 @@ push: setup_builder
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
 		-t supervisions/itop \
+		-t supervisions/itop:3.1 \
 		-t supervisions/itop:$(version) .

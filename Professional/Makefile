@@ -1,6 +1,6 @@
 version = 3.1.0
-release = $(version)-1
-patch = 11832
+release = $(version)-2
+patch = 11970
 
 all: build package
 

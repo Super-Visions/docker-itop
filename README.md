@@ -51,7 +51,7 @@ docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
 ## Tags
 
 * `3.1.0`, `3.1`, `latest`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.1.0/README.md)
+[(Readme)](https://github.com/Combodo/iTop/blob/3.1.0-2/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=latest:release:change_log#section310)
 * `3.0.3`, `3.0`
 [(Readme)](https://github.com/Combodo/iTop/blob/3.0.3/README.md)
