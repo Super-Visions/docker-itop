@@ -13,8 +13,9 @@ RUN apt-get update \
 		graphviz \
 		mariadb-client \
 		unzip \
-	&& chmod uga+x /usr/local/bin/install-php-extensions && \
-    install-php-extensions \
+	&& chmod uga+x /usr/local/bin/install-php-extensions \
+	&& install-php-extensions \
+		apcu \
 		gd \
 		imap \
 		ldap \
