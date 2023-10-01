@@ -42,4 +42,4 @@ ENTRYPOINT ["docker-itop-entrypoint"]
 CMD ["apache2-foreground"]
 
 ENV DB_HOSTNAME="db" DB_PREFIX=""
-VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production", "/var/www/html/log"]
+VOLUME ["/var/www/html", "/var/log/www"]

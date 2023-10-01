@@ -44,3 +44,4 @@ COPY config-itop.php /var/www/html/conf/production/config-itop.php
 RUN chown -R www-data: /var/www/html/conf
 
 ENV DB_HOSTNAME="db" DB_PREFIX=""
+VOLUME ["/var/www/html", "/var/log/www"]

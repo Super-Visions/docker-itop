@@ -45,3 +45,4 @@ RUN ln -s /etc/itop /var/www/html/conf \
 	&& chown -R www-data: /etc/itop
 
 ENV DB_HOSTNAME="db" DB_PREFIX=""
+VOLUME ["/var/www/html", "/var/log/www"]
