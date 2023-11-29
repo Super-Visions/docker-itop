@@ -10,17 +10,9 @@ You can check the [template](./templates/pvc.yaml) for more info.
 
 The folders that are saved are specified in the [deployment.yaml](./templates/deployment.yaml) file :
 
-```yaml
-volumeMounts:
-  - mountPath: "/var/www/html/data"
-    name: itop-data-pv
-  - mountPath: "/var/www/html/env-production"
-    name: itop-env-pv
-  - mountPath: "/var/www/html/log"
-    name: itop-log-pv
-  - mountPath: "/var/www/html/conf"
-    name: itop-conf-pv
-```
+conf, data, env-production, log, extensions, web.
+
+Chart support using separate PV for each folder, or it can be used one PV ( pvc.useOnePV: true ).
 
 ## Values.yaml
 
@@ -62,6 +54,31 @@ You can create a configmap and add it to the pod deployment in order to have the
 
 This is not recommended.
 
-## What is not added
+## Installation
 
-A MySQL/MariaDB chart link in order to also have a db deployed to go with the iTop instance.
+if it is installation from scratch, it is necessary to disable all probes in pod,
+because probes can be failed while install:
+
+```yaml
+startupProbe:
+  enabled: false
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
+```
+
+and after deploying release, open browser at <your_itop_url>/setup
+and follow the installation steps.
+
+After installation will be finished, probes can be enabled.
+
+## Upgrade
+
+- disable POD's probes
+
+- deploy release with newer tag
+
+- open browser at <your_itop_url>/setup and follow for upgrade wizard

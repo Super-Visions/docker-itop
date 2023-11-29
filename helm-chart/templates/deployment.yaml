@@ -29,9 +29,14 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "itop-chart.serviceAccountName" . }}
-      securityContext:
-        fsGroup: 33
+      securityContext: {{- .Values.podSecurityContext | toYaml | nindent 8 }}
+      {{- if .Values.pvc.enabled }}
       volumes:
+      {{- if .Values.pvc.useOnePV }}
+        - name: itop-pv
+          persistentVolumeClaim:
+            claimName: itop-pv
+      {{- else }}
         - name: itop-conf-pv
           persistentVolumeClaim:
             claimName: itop-conf-pvc
@@ -43,22 +48,36 @@ spec:
             claimName: itop-env-pvc
         - name: itop-log-pv
           persistentVolumeClaim:
-            claimName: itop-log-pvc   
+            claimName: itop-log-pvc
+        - name: itop-extensions-pv
+          persistentVolumeClaim:
+            claimName: itop-extensions-pvc
+      {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.pvc.enabled }}
           volumeMounts:
             - mountPath: "/var/www/html/data"
-              name: itop-data-pv
+              name: {{ ternary "itop-pv" "itop-data-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "data" "" .Values.pvc.useOnePV }}
             - mountPath: "/var/www/html/env-production"
-              name: itop-env-pv
+              name: {{ ternary "itop-pv" "itop-env-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "env-production" "" .Values.pvc.useOnePV }}
             - mountPath: "/var/www/html/log"
-              name: itop-log-pv
+              name: {{ ternary "itop-pv" "itop-log-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "log" "" .Values.pvc.useOnePV }}
             - mountPath: "/var/www/html/conf"
-              name: itop-conf-pv
+              name: {{ ternary "itop-pv" "itop-conf-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "conf" "" .Values.pvc.useOnePV }}
+            - mountPath: "/var/www/html/extensions"
+              name: {{ ternary "itop-pv" "itop-extensions-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "extensions" "" .Values.pvc.useOnePV }}
+          {{- end }}
           env:
             - name: "DB_ENV_MYSQL_DATABASE"
               value: {{ .Values.environment.db_name}}
@@ -68,20 +87,56 @@ spec:
               value: {{ .Values.environment.db_user}}
             - name: "DB_ENV_MYSQL_PASSWORD"
               value: {{ .Values.environment.db_pwd}}
+            - name: "DB_PREFIX"
+              value: {{ .Values.environment.db_prefix}}
           ports:
             - name: http
               containerPort: {{ .Values.container.port }}
               protocol: TCP
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /webservices/status.php
+              port: http
+          {{- .Values.startupProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /webservices/status.php
               port: http
+          {{- .Values.livenessProbe | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
               path: /webservices/status.php
               port: http
+          {{- .Values.readinessProbe | toYaml | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if and .Values.pvc.enabled .Values.mariadb.enabled }}
+      initContainers:
+        - name: init-config
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - 'bash'
+            - '-c'
+            - |
+              cd /var/www/html
+              if [ ! -e "confPV/production/config-itop.php" ];then
+                mkdir -p confPV/production
+                cp conf/production/config-itop.php confPV/production/
+                chown 33 confPV/production/config-itop.php
+              fi
+              exit 0
+          volumeMounts:
+            - mountPath: "/var/www/html/confPV"
+              name: {{ ternary "itop-pv" "itop-conf-pv" .Values.pvc.useOnePV }}
+              subPath: {{ ternary "conf" "" .Values.pvc.useOnePV }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

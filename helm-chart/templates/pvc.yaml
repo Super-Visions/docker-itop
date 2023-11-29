@@ -1,11 +1,31 @@
+{{- if .Values.pvc.enabled }}
+{{- if .Values.pvc.useOnePV }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: itop-pv
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.data.size }}
+{{- else }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: itop-conf-pvc
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
   storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.pvc.conf.size }}
@@ -14,10 +34,13 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: itop-data-pvc
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
   storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.pvc.data.size }}
@@ -26,10 +49,13 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: itop-env-pvc
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
   storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.pvc.env.size }}
@@ -38,10 +64,30 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: itop-log-pvc
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
   storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.pvc.log.size }}
+apiVersion: v1
+---
+kind: PersistentVolumeClaim
+metadata:
+  name: itop-extensions-pvc
+  annotations: {{- .Values.pvc.commonAnnotations | toYaml | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.pvc.accessMode }}
+  {{- if  .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.pvc.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.extensions.size }}
+{{- end }}
+{{- end }}

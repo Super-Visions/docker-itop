@@ -5,3 +5,7 @@ Essential/files/iTop-essential-docker.tar.gz
 # ignore iTop Professional source and builds
 Professional/files/iTop Professional-*.zip
 Professional/files/iTop-professional-docker.tar.gz
+
+# ignore helm build`s artifacts
+helm-chart/charts
+helm-chart/Chart.lock
