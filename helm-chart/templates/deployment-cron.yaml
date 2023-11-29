@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "itop-chart.fullname" . }}-cron
+  labels:
+    {{- include "itop-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "itop-chart.selectorLabels" . | nindent 6 }}
+      itop-component: cron
+  template:
+    metadata:
+      {{- with .Values.cron.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "itop-chart.selectorLabels" . | nindent 8 }}
+        itop-component: cron
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "itop-chart.serviceAccountName" . }}
+      securityContext: {{- .Values.podSecurityContext | toYaml | nindent 8 }}
+      containers:
+        - name: cron-{{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "USER"
+              value: {{ .Values.cron.user | quote }}
+            - name: "PASSWORD"
+              value: {{ .Values.cron.password | quote}}
+            - name: "INTERVAL"
+              value: {{ .Values.cron.interval | quote }}
+          command: ["bash"]
+          args:
+            - "-c"
+            - |
+                while true; do
+                    echo -n $(date +"[%m-%d %H:%M:%S]")" | "
+                    START_TIME=${SECONDS};
+                    curl --connect-timeout 3 --user ${USER}:${PASSWORD} "{{ include "itop-chart.fullname" . }}/webservices/cron.php" -sS | grep '<p>';
+                    DURATION=$(( ${SECONDS} - ${START_TIME} ));
+                    [ ${DURATION} -lt ${INTERVAL} ] && sleep $(( ${INTERVAL} - ${DURATION} ));
+                done
+          resources:
+            {{- toYaml .Values.cron.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

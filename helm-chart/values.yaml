@@ -7,13 +7,14 @@ replicaCount: 1
 image:
   repository: supervisions/itop
   pullPolicy: Always
-  tag: 3.0
+  tag: 3.1
 
 environment:
-  db_host: <mysql-server-url> "mysql-chart.database.svc.cluster.local"
-  db_name: <mysql-db-name>
-  db_pwd: <mysql-db-pwd>
-  db_user: <mysql-db-user>
+  db_host: itop-mariadb # <address>:<port>
+  db_name: itop_db
+  db_pwd: itop_password
+  db_user: itop_user
+  db_prefix: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -32,8 +33,8 @@ container:
   port: 80
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  fsGroup: 33
 
 securityContext: {}
   # capabilities:
@@ -44,8 +45,12 @@ securityContext: {}
   # runAsUser: 1000
 
 pvc:
+  enabled: true
+  useOnePV: false
   accessMode: ReadWriteOnce
-  storageClassName: standard
+  storageClassName: ""
+  commonAnnotations:
+    helm.sh/resource-policy: "keep"
   conf:
     size: 1Gi
   data:
@@ -53,6 +58,9 @@ pvc:
   env:
     size: 1Gi
   log:
+    size: 1Gi
+  extensions:
+    enabled: false
     size: 1Gi
 
 service:
@@ -63,8 +71,8 @@ service:
 ingress:
   enabled: true
   className: ""
-  annotations: 
-    traefik.ingress.kubernetes.io/router.tls: "true"
+  annotations: {}
+    # traefik.ingress.kubernetes.io/router.tls: "true"
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -93,6 +101,19 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+startupProbe:
+  enabled: true
+  failureThreshold: 30
+  periodSeconds: 3
+
+readinessProbe:
+  enabled: true
+  periodSeconds: 3
+
+livenessProbe:
+  enabled: true
+  periodSeconds: 3
+
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -105,3 +126,32 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+extraVolumes: []
+
+extraVolumeMounts: []
+
+extraDeploy: []
+
+phpConfig: |
+  # [Core]
+  # error_reporting = E_ALL & ~E_DEPRECATED
+
+cron:
+  enabled: false
+  interval: 60
+  user: admin
+  password: changeMe
+  podAnnotations: {}
+  resources: {}
+
+# setting for mariaDB
+# ( default values: https://github.com/bitnami/charts/blob/main/bitnami/mariadb/values.yaml )
+
+mariadb:
+  enabled: false
+  auth:
+    database: itop_db
+    username: itop_user
+    password: itop_password
+    rootPassword: changeMe
