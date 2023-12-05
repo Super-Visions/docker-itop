@@ -8,8 +8,9 @@ ARG patch
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 # install extra packages
+# hadolint ignore=DL3008,DL3009
 RUN apt-get update \
-	&& apt-get install -y \
+	&& apt-get install -y --no-install-recommends \
 		graphviz \
 		mariadb-client \
 		unzip \
