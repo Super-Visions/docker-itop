@@ -25,7 +25,7 @@ RUN apt-get update \
 		zip
 
 # Load iTop files
-RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/teemip/files/teemip%20-%20a%20standalone%20application/${release}/TeemIp-${release}-${patch}.zip \
+RUN curl -L -o /tmp/iTop.zip https://sourceforge.net/projects/teemip/files/teemip%20-%20a%20standalone%20application/${release}/TeemIP-${release}-${patch}.zip \
 	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
 	&& mv -v /tmp/web/* /var/www/html/ \
 	&& mkdir /var/www/html/env-production \
