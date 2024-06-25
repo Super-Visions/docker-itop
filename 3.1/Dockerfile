@@ -5,7 +5,7 @@ ARG release
 ARG patch
 
 # Add helper script
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/
 
 # Install extra packages
 # hadolint ignore=DL3008,DL3009
@@ -14,7 +14,6 @@ RUN apt-get update \
 		graphviz \
 		mariadb-client \
 		unzip \
-	&& chmod uga+x /usr/local/bin/install-php-extensions \
 	&& install-php-extensions \
 		apcu \
 		gd \
