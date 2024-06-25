@@ -1,6 +1,6 @@
 FROM php:7.1-apache
 
-# install extra packages
+# Install extra packages
 RUN apt-get update \
 	&& apt-get install -y \
 		graphviz \
