@@ -15,10 +15,7 @@ build: setup_builder
 		--builder $(builder) \
 		--platform $(platforms) \
 		--build-arg release=$(release) \
-		--build-arg patch=$(patch) \
-		-t supervisions/itop:2.7 \
-		-t supervisions/itop:$(version) \
-		-t supervisions/itop:$(release) .
+		--build-arg patch=$(patch) .
 
 load: setup_builder
 	# Build and load current platform

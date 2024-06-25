@@ -15,11 +15,7 @@ build: setup_builder
 		--builder $(builder) \
 		--platform $(platforms) \
 		--build-arg release=$(release) \
-		--build-arg patch=$(patch) \
-		-t supervisions/teemip \
-		-t supervisions/teemip:3.1 \
-		-t supervisions/teemip:$(version) \
-		-t supervisions/teemip:$(release) .
+		--build-arg patch=$(patch) .
 
 load: setup_builder
 	# Build and load current platform
