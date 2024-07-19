@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  itop-chart:
+  - apiVersion: v2
+    appVersion: 3.0.0
+    created: "2024-07-19T15:29:35.515658039-06:00"
+    description: Itop Helm chart
+    digest: bfe10df286ae85d7f2fc16624267b510b3e34def634bcea72a25b959f900d888
+    name: itop-chart
+    type: application
+    urls:
+    - https://devopsgyt.github.io/docker-itop/itop-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-19T15:29:35.511985765-06:00"
