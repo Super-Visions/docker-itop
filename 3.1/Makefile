@@ -34,6 +34,5 @@ push: setup_builder
 		--platform $(platforms) \
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
-		-t supervisions/itop \
 		-t supervisions/itop:3.1 \
 		-t supervisions/itop:$(version) .
