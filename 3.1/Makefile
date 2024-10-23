@@ -1,6 +1,6 @@
-version = 3.1.1
-release = $(version)-1
-patch = 12561
+version = 3.1.2
+release = $(version)
+patch = 14913
 builder = itop_builder
 platforms = linux/arm64,linux/amd64
 
