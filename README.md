@@ -57,61 +57,42 @@ docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
 * `2.7.12`, `2.7`
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section2712)
 * `3.1.2`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.1.2/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_1_0:release:change_log#section312)
 * `2.7.11`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.11/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section2711)
 * `3.2.0`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.2.0-2/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_2_0:release:change_log#section320)
 * `3.0.4`, `3.0`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.0.4/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_0_0:release:change_log#section304)
 * `2.7.10`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.10/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section2710)
 * `3.1.1`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.1.1-1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_1_0:release:change_log#section311)
 * `2.7.9`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.9/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section279)
 * `3.1.0`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.1.0-2/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_1_0:release:change_log#section310)
 * `3.0.3`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.0.3/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_0_0:release:change_log#section303)
 * `2.7.8`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.8/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section278)
 * `3.0.2`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.0.2-1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_0_0:release:change_log#section302)
 * `2.7.7`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.7/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section277)
 * `3.0.1`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.0.1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_0_0:release:change_log#section301)
 * `3.0.0`
-[(Readme)](https://github.com/Combodo/iTop/blob/3.0.0/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_0_0:release:change_log#section300)
 * `2.7.6`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.6/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section276)
 * `2.7.5`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.5-1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section275)
 * `2.7.4`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.4/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section274)
 * `2.7.3`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.3/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section273)
 * `2.7.2`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.7.2-1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section272)
 * `2.7.1`
 [(Readme)](https://github.com/Combodo/iTop/blob/2.7.1/README.md)
@@ -120,13 +101,10 @@ docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
 [(Readme)](https://github.com/Combodo/iTop/blob/2.7.0-2/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_7_0:release:change_log#section270)
 * `2.6.3`, `2.6`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.6.3/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_6_0:release:change_log#section263)
 * `2.6.1`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.6.1/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_6_0:release:change_log#section261)
 * `2.6.0`
-[(Readme)](https://github.com/Combodo/iTop/blob/2.6.0/README.md)
 [(Changelog)](https://www.itophub.io/wiki/page?id=2_6_0:release:change_log#section260)
 * `2.5.1`, `2.5`
 [(Readme)](https://github.com/Combodo/iTop/blob/2.5.1/readme.txt)
