@@ -23,7 +23,6 @@ load: setup_builder
 		--builder $(builder) \
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
-		-t supervisions/itop \
 		-t supervisions/itop:3.2 \
 		-t supervisions/itop:$(version) \
 		-t supervisions/itop:$(release) .
@@ -35,6 +34,5 @@ push: setup_builder
 		--platform $(platforms) \
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
-		-t supervisions/itop \
 		-t supervisions/itop:3.2 \
 		-t supervisions/itop:$(version) .
