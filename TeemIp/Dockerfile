@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.4-apache
 
 # Load version info from arguments
 ARG release
