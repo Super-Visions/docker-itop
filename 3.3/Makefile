@@ -31,6 +31,7 @@ load: setup_builder
 push: setup_builder
 	# Build and push all supported platforms
 	docker buildx build --pull --push \
+		--provenance=mode=max \
 		--builder $(builder) \
 		--platform $(platforms) \
 		--build-arg release=$(release) \
