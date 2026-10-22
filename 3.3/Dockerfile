@@ -1,8 +1,22 @@
-FROM php:8.4-apache
+FROM php:8.4-apache AS itop-src
+
+# Install unzip package
+# hadolint ignore=DL3008,DL3015
+RUN apt-get update && apt-get install -y unzip
 
 # Load version info from arguments
 ARG release
 ARG patch
+ARG checksum
+
+# Extract iTop files
+ADD --checksum=${checksum} \
+	https://github.com/Combodo/iTop/releases/download/${release}/iTop-${release}-${patch}.zip /tmp/iTop.zip
+RUN unzip -q /tmp/iTop.zip -d /tmp/ \
+	&& mkdir /tmp/web/env-production
+
+
+FROM php:8.4-apache AS itop
 
 # Add helper script
 COPY --from=mlocati/php-extension-installer:latest /usr/bin/install-php-extensions /usr/local/bin/
@@ -13,7 +27,6 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		graphviz \
 		mariadb-client \
-		unzip \
 	&& install-php-extensions \
 		apcu \
 		gd \
@@ -24,17 +37,11 @@ RUN apt-get update \
 		zip
 
 # Load iTop files
-RUN curl -L -o /tmp/iTop.zip https://github.com/Combodo/iTop/releases/download/${release}/iTop-${release}-${patch}.zip \
-	&& unzip /tmp/iTop.zip -d /tmp/ web/* \
-	&& mv -v /tmp/web/* /var/www/html/ \
-	&& mkdir /var/www/html/env-production \
-	&& chown -R www-data: /var/www/html/ \
-	&& rm -rf /tmp/iTop.zip /tmp/web
+COPY --from=itop-src --chown=www-data:www-data /tmp/web/ /var/www/html/
 
 # Add default configuration
 COPY php.ini /usr/local/etc/php/php.ini
-COPY config-itop.php /var/www/html/conf/production/config-itop.php
-RUN chown -R www-data: /var/www/html/conf
+COPY --chown=www-data:www-data config-itop.php /var/www/html/conf/production/config-itop.php
 
 # Add custom entrypoint
 COPY docker-itop-entrypoint /usr/local/bin/

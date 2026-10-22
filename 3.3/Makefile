@@ -1,6 +1,7 @@
 version = 3.3.0
 release = $(version)
 patch = 21411
+checksum = sha256:b4e52f8d5da53d990630a11dbda943de110cb9df6fea8228e382443975abc0e4
 builder = itop_builder
 platforms = linux/arm64,linux/amd64
 
@@ -15,7 +16,8 @@ build: setup_builder
 		--builder $(builder) \
 		--platform $(platforms) \
 		--build-arg release=$(release) \
-		--build-arg patch=$(patch) .
+		--build-arg patch=$(patch) \
+		--build-arg checksum=$(checksum) .
 
 load: setup_builder
 	# Build and load current platform
@@ -23,6 +25,7 @@ load: setup_builder
 		--builder $(builder) \
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
+		--build-arg checksum=$(checksum) \
 		-t supervisions/itop \
 		-t supervisions/itop:3.3 \
 		-t supervisions/itop:$(version) \
@@ -36,6 +39,7 @@ push: setup_builder
 		--platform $(platforms) \
 		--build-arg release=$(release) \
 		--build-arg patch=$(patch) \
+		--build-arg checksum=$(checksum) \
 		-t supervisions/itop \
 		-t supervisions/itop:3.3 \
-		-t supervisions/itop:$(release) .
+		-t supervisions/itop:$(version) .
