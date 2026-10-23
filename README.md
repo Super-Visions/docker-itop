@@ -50,7 +50,7 @@ services:
       db:
         condition: service_healthy
   db:
-    image: mariadb
+    image: mariadb:11.8
     environment:
       MARIADB_DATABASE: itop
       MARIADB_USER: ${MARIADB_USER:-itop}
