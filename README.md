@@ -6,52 +6,107 @@ Run [iTop](https://www.itophub.io) in a Docker container based on the [php:apach
 
 ## Usage
 
-Run the latest version (see tags for other iTop versions) container named **my-itop**:
+Run the latest version (see [tags](#tags) for other iTop versions) container named **my-itop**:
 
 ```shell
 docker run -d -p 80:80 --name=my-itop supervisions/itop:latest
 ```
 
-Then go to [http://localhost/setup](http://localhost/setup) to continue the installation.
-The setup can be preloaded with database credentials by linking to a MySQL/MariaDB container or by providing environment variables.
-Note that you will need to select _Install a new iTop_ on the second page.
-
-### Link with MySQL or MariaDB container
-
-This methods works with both [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb/) containers.
-For example, create this MariaDB instance named **my-itop-db**:
-
-```shell
-docker run -d --name=my-itop-db -e MYSQL_DATABASE=itop -e MYSQL_USER=itop -e MYSQL_PASSWORD=itop -e MYSQL_RANDOM_ROOT_PASSWORD=yes mariadb
-```
-
-The link needs to be called **db** in order to gain profit of it:
-
-```shell
-docker run -d -p 80:80 --link=my-itop-db:db --name=my-itop supervisions/itop:latest
-```
+Then go to http://localhost/ to start the installation wizard.
 
 ### Scheduling cron.php
 
 In order to operate properly, iTop maintenance operations and asynchronous tasks must be executed on a regular basis.
 In order to ease the installation, all the background tasks have been grouped to be launched from a single file.
-The command to run this from your sheduler looks like this:
+The command to run this from your scheduler looks like this:
 
 ```shell
-docker exec my-itop php webservices/cron.php --auth_user=<login> --auth_pwd=<password>
+docker exec -u www-data my-itop php webservices/cron.php --auth_user=<login> --auth_pwd=<password>
 ```
 
-If you don't want these credentials to be present in your sheduler, you can create a file `/etc/itop/cron.params` based on the file `webservices/cron.distrb` which can be used as a template.
-The command to run from your sheduler then becomes this:
+If you don't want these credentials to be present in your scheduler, you can create a file `/etc/itop/cron.params` based on the file `webservices/cron.distrib` which can be used as a template.
+The command to run from your scheduler then becomes this:
 
 ```shell
-docker exec my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
+docker exec -u www-data my-itop php webservices/cron.php --param_file=/etc/itop/cron.params
+```
+
+### Docker Compose
+
+A minimal setup with MariaDB and the cron task runner:
+
+```yaml
+services:
+  itop:
+    image: supervisions/itop:3.3
+    pull_policy: weekly
+    volumes:
+      - itop-conf:/var/www/html/conf
+      - itop-data:/var/www/html/data
+      - itop-env:/var/www/html/env-production
+    ports:
+      - "[::1]:80:80" # only listen on localhost
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mariadb
+    environment:
+      MARIADB_DATABASE: itop
+      MARIADB_USER: ${MARIADB_USER:-itop}
+      MARIADB_PASSWORD: ${MARIADB_PASS:-itop}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - db-data:/var/lib/mysql
+  cron:
+    image: supervisions/itop:3.3
+    pull_policy: weekly
+    restart: unless-stopped
+    environment:
+      AUTH_USER: ${CRON_USER:-admin}
+      AUTH_PWD: ${CRON_PASS:-admin}
+    volumes:
+      - itop-conf:/var/www/html/conf
+      - itop-data:/var/www/html/data
+      - itop-env:/var/www/html/env-production
+    user: www-data
+    entrypoint: [sh, -c]
+    command:
+      - php webservices/cron.php --auth_user="$${AUTH_USER}" --auth_pwd="$${AUTH_PWD}"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:
+  itop-conf:
+  itop-data:
+  itop-env:
+```
+
+Start it with `docker compose up -d`, open http://localhost/ and run the setup wizard.
+Use `db` as the database host, enter the username and password, and select the `itop` database.
+Set `CRON_USER` and `CRON_PASS` in a `.env` file to an iTop account with the Administrator profile.
+
+Example `.env` file:
+
+```ini
+MARIADB_USER=itop
+MARIADB_PASS=change-me
+CRON_USER=cron
+CRON_PASS=change-me
 ```
 
 ## Tags
 
 * `3.3.0`, `3.3`, `latest`
-[(changelog)](https://www.itophub.io/wiki/page?id=3_3_0:release:change_log#section330)
+[(Changelog)](https://www.itophub.io/wiki/page?id=3_3_0:release:change_log#section330)
 * `3.2.3`, `3.2`
 [(Changelog)](https://www.itophub.io/wiki/page?id=3_2_0:release:change_log#section3232)
 * `2.7.13`, `2.7`
