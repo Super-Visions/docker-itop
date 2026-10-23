@@ -13,7 +13,7 @@ ARG checksum
 ADD --checksum=${checksum} \
 	https://github.com/Combodo/iTop/releases/download/${release}/iTop-${release}-${patch}.zip /tmp/iTop.zip
 RUN unzip -q /tmp/iTop.zip -d /tmp/ \
-	&& mkdir /tmp/web/env-production
+	&& mkdir /tmp/web/env-production /tmp/web/data/backups
 
 
 FROM php:8.4-apache AS itop
