@@ -10,7 +10,7 @@ ARG patch
 ARG checksum
 
 # Extract iTop files
-ADD --checksum=${checksum} \
+ADD --checksum=sha256:${checksum} \
 	https://github.com/Combodo/iTop/releases/download/${release}/iTop-${release}-${patch}.zip /tmp/iTop.zip
 RUN unzip -q /tmp/iTop.zip -d /tmp/ \
 	&& mkdir /tmp/web/env-production /tmp/web/data/backups

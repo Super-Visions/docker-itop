@@ -1,7 +1,7 @@
 version = 3.3.0
 release = $(version)
 patch = 21411
-checksum = sha256:b4e52f8d5da53d990630a11dbda943de110cb9df6fea8228e382443975abc0e4
+checksum = b4e52f8d5da53d990630a11dbda943de110cb9df6fea8228e382443975abc0e4
 builder = itop_builder
 platforms = linux/arm64,linux/amd64
 
