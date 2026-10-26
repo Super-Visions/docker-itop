@@ -41,12 +41,10 @@ COPY --from=itop-src --chown=www-data:www-data /tmp/web/ /var/www/html/
 
 # Add default configuration
 COPY php.ini /usr/local/etc/php/php.ini
-COPY --chown=www-data:www-data config-itop.php /var/www/html/conf/production/config-itop.php
 
 # Add custom entrypoint
 COPY docker-itop-entrypoint /usr/local/bin/
 ENTRYPOINT ["docker-itop-entrypoint"]
 CMD ["apache2-foreground"]
 
-ENV DB_HOSTNAME="db" DB_PREFIX=""
 VOLUME ["/var/www/html/conf", "/var/www/html/data", "/var/www/html/env-production", "/var/www/html/log"]
